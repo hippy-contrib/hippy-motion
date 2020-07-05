@@ -16,27 +16,22 @@ export class Motion extends Component<MotionProps> {
   componentWillUnmount() {
     this.destroy();
   };
-  // restart() {
-  // }
   play() {
     const { animation } = this.props;
-    // @ts-ignore
+    if(!animation) return;
     Object.keys(animation).forEach(_key => {
-      // @ts-ignore
-      console.log(this[`${_key}Animation`], "动画实例====")
       // @ts-ignore
       this[`${_key}Animation`].start();
     });
   }
   destroy(){
     const { animation } = this.props;
-      // @ts-ignore
+    if(!animation) return;
     Object.keys(animation).forEach(_key => {
       // @ts-ignore
       this[`${_key}Animation`].destroy();
     })
   }
-
   setAnimationData(){
     const { animation } = this.props;
     if(!animation) return;
@@ -53,13 +48,15 @@ export class Motion extends Component<MotionProps> {
               toValue: item[1],
               duration: _animation.duration/_value.length,
               mode: "timing",
-              timingFunction: _animation.timingFunction
-            })
+              timingFunction: _animation.timingFunction || "linear"
+            }),
+            follow: true
           });
         });
         // @ts-ignore
         this[`${_key}Animation`] = new AnimationSet({
-          children: _children
+          children: _children,
+          repeatCount: _animation.repeatCount || 0
         });
       } else {
         // @ts-ignore
@@ -67,9 +64,9 @@ export class Motion extends Component<MotionProps> {
           startValue: _value[0][0],
           toValue: _value[0][1],
           duration: _animation.duration,
-          delay: _animation.delay,
           mode: "timing",
-          timingFunction: _animation.timingFunction
+          timingFunction: _animation.timingFunction || "linear",
+          repeatCount: _animation.repeatCount || 0
         });
       };
     });
@@ -85,19 +82,18 @@ export class Motion extends Component<MotionProps> {
       // @ts-ignore
       _style[_key] = this[`${_key}Animation`];
       if(_key === AnimationType.translateX || _key ===  AnimationType.translateY || _key ===  AnimationType.scale){
+        _transform.push(_style);
         _transformStyle = {
-          transform: _transform.push(_style)
+          transform: _transform
         }
       } else {
         _normalStyle = _style;
       };
-
     });
     return {
       ..._normalStyle,
       ..._transformStyle
     };
-
   }
   getAnimationValue(value: number[]) {
     let _value: [number,number][] = [];
