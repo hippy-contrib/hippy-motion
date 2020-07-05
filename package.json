@@ -1,0 +1,30 @@
+{
+    "name": "@tencent/hippy-motion",
+    "version": "0.0.1",
+    "description": "Hippy 动画库",
+    "main": "lib/index.js",
+    "types": "./lib/index.d.ts",
+    "files": [
+        "lib"
+    ],
+    "scripts": {
+        "dev": "tsc --build --watch",
+        "build": "tsc --build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "http://git.code.oa.com/melodyren/hippy-motion.git"
+    },
+    "keywords": [
+        "Hippy",
+        "Animation",
+        "动画库"
+    ],
+    "author": "melodyren",
+    "license": "MIT",
+    "devDependencies": {
+        "@tencent/types-hippy-react": "^1.0.20",
+        "@types/react": "^16.9.41",
+        "@types/react-dom": "^16.9.8"
+    }
+}
