@@ -5,43 +5,43 @@ import Motion from "./Motion";
  * @visibleName Attention 引起用户注意相关动画
  */
 export default class Attention extends Component<AttentionProps> {
-  getAttentionConfig(){
+  getAttentionConfig() {
     const { type } = this.props;
-    switch(type){
+    switch (type) {
       case AttentionType.heartBeat:
         return {
           scale: {
-            value: [1,1.3,1],
+            value: [1, 1.3, 1],
             repeatCount: "loop",
-            duration: 3000
-          }
+            duration: 3000,
+          },
         };
       case AttentionType.shakeX:
         return {
           translateX: {
-            value: [-10,0],
+            value: [-10, 0],
             repeatCount: 10,
-            duration: 300
-          }
+            duration: 300,
+          },
         };
       case AttentionType.shakeY:
         return {
           translateY: {
-            value: [-10,0],
+            value: [-10, 0],
             repeatCount: 10,
-            duration: 300
-          }
+            duration: 300,
+          },
         };
-      default: 
-        return {}
+      default:
+        return {};
     }
   }
   render() {
     const { style, children } = this.props;
-    return <Motion style={style} animation={this.getAttentionConfig()}>
-      {children}
+    return (
+      <Motion style={style} animation={this.getAttentionConfig()}>
+        {children}
       </Motion>
-
+    );
   }
 }
-

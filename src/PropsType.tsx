@@ -17,8 +17,15 @@ export interface AnimationProps {
   repeatCount?: number;
   /** 动画延迟开始的时间，单位为毫秒，默认为0，即动画start之后立即执行； */
   delay?: number;
+  /** 单位类型，默认为空，单位pt */
+  valueType?: "" | "rad" | "deg";
   /** 动画缓动函数，默认linear */
-  timingFunction?: "linear" | "ease-in" | "ease-out" | "ease-in-out" | "ease_bezier";
+  timingFunction?:
+    | "linear"
+    | "ease-in"
+    | "ease-out"
+    | "ease-in-out"
+    | "ease_bezier";
 
   /** 在动画开始时将会回调callback */
   onAnimationStart?: Function;
@@ -28,23 +35,22 @@ export interface AnimationProps {
   onAnimationRepeat?: Function;
   /** 在动画被取消时将会回调callback，取消的情况包括：尚未start或尚未结束的动画被destroy时； */
   onAnimationCancel?: Function;
-
 }
-export enum  AnimationType {
+export enum AnimationType {
   /**  x 方向的位置移动 某px */
-  translateX =  "translateX",
+  translateX = "translateX",
   /**  y 方向的位置移动 某px */
-  translateY =  "translateY",
+  translateY = "translateY",
   /** 元素以 transformOrigin 的中心点缩放到 某值, 不改变元素的宽高 */
-  scale  =  "scale",
+  scale = "scale",
   /** 元素以 transformOrigin 的中心点旋转 某deg **/
-  rotate =  "rotate",
+  rotate = "rotate",
   /** 元素当前左部距离到 某px, 需配合 position: relative | absolute */
-  left =  "left",
+  left = "left",
   /** 元素当前右部距离到 某px, 需配合 position: relative | absolute */
-  right =  "right",
+  right = "right",
   /** 元素当前顶部距离到 某px, 需配合 position: relative | absolute */
-  top =  "top",
+  top = "top",
   /** 元素当前下部距离到 某px, 需配合 position: relative | absolute */
   bottom = "bottom",
   /**  元素透明度变化 */
@@ -56,18 +62,18 @@ export enum  AnimationType {
   paddingTop = "paddingTop",
   paddingBottom = "paddingBottom",
   paddingLeft = "paddingLeft",
-  paddingRight = "paddingRight"
+  paddingRight = "paddingRight",
 }
 
 export enum FadeType {
   fadeIn = "fadeIn",
   fadeOut = "fadeOut",
-  fadeInOut = "fadeInOut"
+  fadeInOut = "fadeInOut",
 }
 export enum AttentionType {
   heartBeat = "heartBeat",
   shakeX = "shakeX",
-  shakeY = "shakeY"
+  shakeY = "shakeY",
 }
 
 export interface FadeProps extends MotionProps {

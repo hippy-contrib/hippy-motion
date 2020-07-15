@@ -16,7 +16,7 @@ import React, { Component } from "react";
 import { Motion } from "@tencent/hippy-motion";
 
 /**
- * @visibleName CustomComponent 
+ * @visibleName CustomComponent
  */
 export default class CustomComponent extends Component<FadeProps> {
   render() {
@@ -58,16 +58,6 @@ export default class CustomComponent extends Component<FadeProps> {
 |   right           | `{ right: 100 }` 元素当前右部距离到 100px, 需配合 `position: relative | absolute`  |
 |   bottom          | `{ bottom: 100 }` 元素当前下部距离到 100px, 需配合 `position: relative | absolute`  |
 |   left            | `{ left: 100 }` 元素当前左部距离到 100px, 需配合 `position: relative | absolute`  |
-|   marginTop       | `{ marginTop: 100 }` 元素当前顶部外边距离到 100px  |
-|   marginRight     | `{ marginRight: 100 }` 元素当前右部外边距离到 100px  |
-|   marginBottom    | `{ marginBottom: 100 }` 元素当前下部外边距离到 100px  |
-|   marginLeft      | `{ marginLeft: 100 }` 元素当前左部外边距离到 100px  |
-|   paddingTop      | `{ paddingTop: 100 }` 元素当前顶部内边距离到 100px  |
-|   paddingRight    | `{ paddingRight: 100 }` 元素当前右部内边距离到 100px  |
-|   paddingBottom   | `{ paddingBottom: 100 }` 元素当前下部内边距离到 100px  |
-|   paddingLeft     | `{ paddingLeft: 100 }` 元素当前左部内边距离到 100px  |
-|   color           | `{ color: '#FFFFFF' }` 元素当前文字颜色到白色   |
-|  backgroundColor  | `{ backgroundColor: '#FFFFFF' }` 元素当前背景颜色到白色 |
 
 
 ### transform 参数
@@ -110,7 +100,7 @@ export default class CustomComponent extends Component<FadeProps> {
 
 
 ### 动态效果
-1. 单物体可视范围内点到点之间的运动 
+1. 单物体可视范围内点到点之间的运动
 单物体可视范围内点到点之间的运动，采用的是 ease-in-out
 
 2. 单物体可视范围外进场的运动
