@@ -1,12 +1,12 @@
-export interface MotionProps {
-  /** 容器样式 */
-  style?: object;
-  /** 动画 */
-  animation?: object;
-  /** 所有动画结束时将会回调callback */
-  onAnimationEnd?: Function;
-  /** 是否暂停动画 */
-  // paused?: boolean;
+import { Touchable } from "@tencent/types-hippy-react";
+export interface MotionProps extends Touchable {
+  style?: object; /** 容器样式 */
+  animation: object; /** 动画 */
+  onAllAnimationStart?: Function;  /** 给所有动画加上开始时将会回调callback */
+  onAllAnimationRepeat?: Function; /** 给所有动画加上开启新一次动画循环时将会回调callback */
+  onAllAnimationEnd?: Function; /** 给所有动画加上结束时将会回调callback */
+  onAllAnimationCancel?: Function; /** 给所有动画加上中断时将会回调callback */
+  getAnimationIns?: (cb:Function) => void
 }
 
 export interface AnimationProps {
@@ -20,13 +20,7 @@ export interface AnimationProps {
   /** 单位类型，默认为空，单位pt */
   valueType?: "" | "rad" | "deg";
   /** 动画缓动函数，默认linear */
-  timingFunction?:
-    | "linear"
-    | "ease-in"
-    | "ease-out"
-    | "ease-in-out"
-    | "ease_bezier";
-
+  timingFunction?: "linear" | "ease-in" | "ease-out" | "ease-in-out" | "ease_bezier";
   /** 在动画开始时将会回调callback */
   onAnimationStart?: Function;
   /** 在动画结束时将会回调callback */
