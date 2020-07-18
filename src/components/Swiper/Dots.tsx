@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { View, StyleSheet } from "@tencent/hippy-react";
-import { SliderDotsProps } from "../PropsType";
+import { SliderDotsProps } from "./PropsType";
 /**
  * @visibleName SliderDots 轮播页码
  */

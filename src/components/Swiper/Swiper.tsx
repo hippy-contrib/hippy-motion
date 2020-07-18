@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { View, Image, ViewPager, StyleSheet } from "@tencent/hippy-react";
-import { SwiperProps } from "../PropsType";
-import SliderDots from "./SliderDots";
-import { WINDOW_WIDTH } from "../common/utils";
+import { SwiperProps } from "./PropsType";
+import SliderDots from "./Dots";
+import { WINDOW_WIDTH } from "../../common/utils";
 
 interface SwiperItemProps {
   picUrl: string;

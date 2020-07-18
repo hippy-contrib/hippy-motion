@@ -195,3 +195,5 @@ export enum AnimationType {
   <Text>Zoom.Type.zoomInOut</Text>
 </Zoom>
 ```
+
+### Swiper 组件
