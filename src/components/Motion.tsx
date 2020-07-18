@@ -10,34 +10,39 @@ export class Motion extends Component<MotionProps> {
     super(props);
     this.setAnimationData(); // 初始化动画实例
   }
+
+  private animationInsMap = new Map();
+
   componentDidMount() {
     this.play();
+    this.props.getAnimationIns?.call(this, this.getAnimationMapIns);
   }
   componentWillUnmount() {
     this.destroy();
   }
+  getAnimationMapIns = (key: string) => {
+    return this.animationInsMap.get(`${key}Animation`)
+  }
+
   play() {
     const { animation } = this.props;
     if (!animation) return;
     Object.keys(animation).forEach((_key) => {
-      // @ts-ignore
-      this[`${_key}Animation`].start();
+      this.animationInsMap.get(`${_key}Animation`).start();
     });
   }
   destroy() {
     const { animation } = this.props;
     if (!animation) return;
     Object.keys(animation).forEach((_key) => {
-      // @ts-ignore
-      this[`${_key}Animation`].destroy();
+      this.animationInsMap.get(`${_key}Animation`).destroy();
     });
   }
   setAnimationData() {
     const { animation } = this.props;
     if (!animation) return;
     Object.keys(animation).forEach((_key) => {
-      // @ts-ignore
-      const _animation = animation[_key];
+      const _animation = (animation as any)[_key];
       const _value = this.getAnimationValue(_animation.value); // 解析配置项
       if (_value.length > 1) {
         const _children: any = [];
@@ -54,23 +59,39 @@ export class Motion extends Component<MotionProps> {
             follow: true,
           });
         });
-        // @ts-ignore
-        this[`${_key}Animation`] = new AnimationSet({
-          children: _children,
-          repeatCount: _animation.repeatCount || 0,
-        });
+        this.animationInsMap.set(
+          `${_key}Animation`,
+          new AnimationSet({
+            children: _children,
+            repeatCount: _animation.repeatCount || 0,
+          })
+        );
       } else {
-        // @ts-ignore
-        this[`${_key}Animation`] = new Animation({
-          startValue: _value[0][0],
-          toValue: _value[0][1],
-          duration: _animation.duration,
-          valueType: _animation.valueType,
-          mode: "timing",
-          timingFunction: _animation.timingFunction || "linear",
-          repeatCount: _animation.repeatCount || 0,
-        });
+        this.animationInsMap.set(
+          `${_key}Animation`,
+          new Animation({
+            startValue: _value[0][0],
+            toValue: _value[0][1],
+            duration: _animation.duration,
+            valueType: _animation.valueType,
+            mode: "timing",
+            timingFunction: _animation.timingFunction || "linear",
+            repeatCount: _animation.repeatCount || 0,
+          })
+        );
       }
+      // 全局注册每个动画各个生命周期的监听回调
+      ["onAllAnimationStart", "onAllAnimationRepeat", "onAllAnimationEnd", "onAllAnimationCancel"].forEach((item) => {
+        if (!!(this.props as any)[item]) {
+          for (let animationInstance of this.animationInsMap.values()) {
+            animationInstance[item.replace(new RegExp("All"), "")]((this.props as any)[item]);
+          }
+        }
+      });
+      // 注册单个动画各个生命周期的监听回调
+      ["onAnimationStart", "onAnimationRepeat", "onAnimationEnd", "onAnimationCancel"].forEach((item) => {
+        !!_animation[item] && this.animationInsMap.get(`${_key}Animation`)[item](_animation[item]);
+      });
     });
   }
   getComputedStyle() {
@@ -81,8 +102,7 @@ export class Motion extends Component<MotionProps> {
     if (!animation) return {};
     Object.keys(animation).forEach((_key) => {
       let _style = {};
-      // @ts-ignore
-      _style[_key] = this[`${_key}Animation`];
+      (_style as any)[_key] = this.animationInsMap.get(`${_key}Animation`);
       if (
         _key === AnimationType.translateX ||
         _key === AnimationType.translateY ||
@@ -94,7 +114,7 @@ export class Motion extends Component<MotionProps> {
           transform: _transform,
         };
       } else {
-        _normalStyle = Object.assign(_normalStyle, _style)
+        _normalStyle = Object.assign(_normalStyle, _style);
       }
     });
     return {
@@ -114,7 +134,11 @@ export class Motion extends Component<MotionProps> {
   }
   render() {
     const { style, children } = this.props;
-    return <View style={[style, this.getComputedStyle()]}>{children}</View>;
+    return (
+      <View style={[style, this.getComputedStyle()]}>
+        {children}
+      </View>
+    );
   }
 }
 export default Motion;
