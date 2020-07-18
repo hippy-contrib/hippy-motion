@@ -1,6 +1,6 @@
 {
     "name": "@tencent/hippy-motion",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "description": "Hippy 动画库",
     "main": "lib/index.js",
     "types": "./lib/index.d.ts",
