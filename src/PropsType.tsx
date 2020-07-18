@@ -1,14 +1,13 @@
 import { Touchable } from "@tencent/types-hippy-react";
 export interface MotionProps extends Touchable {
-  style?: object; /** 容器样式 */
-  animation: object; /** 动画 */
-  onAllAnimationStart?: Function;  /** 给所有动画加上开始时将会回调callback */
-  onAllAnimationRepeat?: Function; /** 给所有动画加上开启新一次动画循环时将会回调callback */
-  onAllAnimationEnd?: Function; /** 给所有动画加上结束时将会回调callback */
-  onAllAnimationCancel?: Function; /** 给所有动画加上中断时将会回调callback */
-  getAnimationIns?: (cb:Function) => void
+  style?: object /** 容器样式 */;
+  animation: any /** 动画 */;
+  onAllAnimationStart?: Function /** 给所有动画加上开始时将会回调callback */;
+  onAllAnimationRepeat?: Function /** 给所有动画加上开启新一次动画循环时将会回调callback */;
+  onAllAnimationEnd?: Function /** 给所有动画加上结束时将会回调callback */;
+  onAllAnimationCancel?: Function /** 给所有动画加上中断时将会回调callback */;
+  getAnimationIns?: (cb: Function) => void;
 }
-
 export interface AnimationProps {
   value: number[];
   /** 动画时长，单位为毫秒(ms) */
@@ -64,34 +63,48 @@ export enum AnimationType {
   /** 元素当前左部内边距离到 某px */
   paddingLeft = "paddingLeft",
   /** 元素当前右部内边距离到 某px */
-  paddingRight = "paddingRight",
+  paddingRight = "paddingRight"
 }
 
+export interface CustomAnimationProps {
+  /** 动画时长 */
+  duration?: number;
+  /** 动画的重复次数，默认为0， loop 代表无限循环播放；需要注意：duration时长是1次动画时长，重复n次，总的动画时长是duration*n */
+  repeatCount?: number;
+  /** 容器样式 */
+  style?: object;
+}
+export interface FadeProps extends CustomAnimationProps {
+  /** 动画类型 */
+  type: FadeType;
+}
 export enum FadeType {
   fadeIn = "fadeIn",
   fadeOut = "fadeOut",
-  fadeInOut = "fadeInOut",
-}
-export enum AttentionType {
-  heartBeat = "heartBeat",
-  shakeX = "shakeX",
-  shakeY = "shakeY",
+  fadeInOut = "fadeInOut"
 }
 
-export interface FadeProps extends MotionProps {
-  /** 动画类型 */
-  type: FadeType;
-  /** 动画时长 */
-  duration?: number;
-  /** 动画的重复次数，默认为0， loop 代表无限循环播放；需要注意：duration时长是1次动画时长，重复n次，总的动画时长是duration*n */
-  repeatCount?: number;
-}
-
-export interface AttentionProps extends MotionProps {
+export interface AttentionProps extends CustomAnimationProps {
   /** 动画类型 */
   type: AttentionType;
-  /** 动画时长 */
-  duration?: number;
-  /** 动画的重复次数，默认为0， loop 代表无限循环播放；需要注意：duration时长是1次动画时长，重复n次，总的动画时长是duration*n */
-  repeatCount?: number;
+}
+export enum AttentionType {
+  // bounce = "bounce", // animate.css 中bounce 对运动函数cubic-bezier 参数做了配置，目前hippy已有的运动函数运动的有点奇怪，先不做实现
+  flash = "flash",
+  pulse = "pulse",
+  // rubberBand = "rubberBand", // 暂未实现，hippy无法实现，有横向和纵向二个方向的缩放；
+  shakeX = "shakeX",
+  shakeY = "shakeY",
+  headShake = "headShake", // 和shakeX 很相似，但加了弧度运动
+  heartBeat = "heartBeat",
+  swing = "swing",
+  wobble = "wobble"
+}
+export interface ZoomProps extends CustomAnimationProps {
+  /** 动画类型 */
+  type: ZoomType;
+}
+export enum ZoomType {
+  zoomIn = "zoomIn",
+  zoomOut = "zoomOut"
 }
