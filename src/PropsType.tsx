@@ -1,6 +1,6 @@
-import { Touchable } from "@tencent/types-hippy-react";
+import { Touchable, ViewPagerProps, StyleProp, ViewStyle } from "@tencent/types-hippy-react";
 export interface MotionProps extends Touchable {
-  style?: object /** 容器样式 */;
+  style?: StyleProp<ViewStyle> /** 容器样式 */;
   animation: any /** 动画 */;
   onAllAnimationStart?: Function /** 给所有动画加上开始时将会回调callback */;
   onAllAnimationRepeat?: Function /** 给所有动画加上开启新一次动画循环时将会回调callback */;
@@ -72,7 +72,7 @@ export interface CustomAnimationProps {
   /** 动画的重复次数，默认为0， loop 代表无限循环播放；需要注意：duration时长是1次动画时长，重复n次，总的动画时长是duration*n */
   repeatCount?: number;
   /** 容器样式 */
-  style?: object;
+  style?: StyleProp<ViewStyle>;
 }
 export interface FadeProps extends CustomAnimationProps {
   /** 动画类型 */
@@ -107,4 +107,38 @@ export interface ZoomProps extends CustomAnimationProps {
 export enum ZoomType {
   zoomIn = "zoomIn",
   zoomOut = "zoomOut"
+}
+
+export interface DotsStyle {
+  dotsWrap?: StyleProp<ViewStyle>;
+  dot?: StyleProp<ViewStyle>;
+  dotActive?: StyleProp<ViewStyle>;
+}
+
+export interface SliderDotsProps {
+  /** slider 长度 */
+  length: number;
+  /** 当前选中 index */
+  activeIndex: number;
+  dotsStyle?: DotsStyle;
+}
+
+export interface SwiperProps extends ViewPagerProps {
+  /** 容器样式 */
+  style?: object;
+  /** 滑动图片列表 */
+  data?: string[];
+  /** position 改变时会触发 change 事件 */
+  onChange?: (position: number) => void;
+  /** 自动轮播间隔，单位为 ms */
+  autoplay?: number;
+  /** 是否开启循环播放 未实现*/
+  loop?: boolean;
+  /** 是否显示指示器 */
+  showDots?: boolean;
+  // 指示器自定义样式
+  dotsStyle?: DotsStyle;
+  /** 触摸事件 */
+  onTouch?: (current: number) => void;
+  children?: React.ReactNodeArray;
 }
