@@ -49,13 +49,21 @@ export enum AnimationType {
   bottom = "bottom",
   /**  元素透明度变化 */
   opacity = "opacity",
+  /** 元素当前顶部外边距离到 某px */
   marginTop = "marginTop",
+  /** 元素当前底部外边距离到 某px */
   marginBottom = "marginBottom",
+  /** 元素当前左边外边距离到 某px */
   marginLeft = "marginLeft",
+  /** 元素当前右边外边距离到 某px */
   marginRight = "marginRight",
+  /** 元素当前顶部内边距离到 某px */
   paddingTop = "paddingTop",
+  /** 元素当前底部内边距离到 某px */
   paddingBottom = "paddingBottom",
+  /** 元素当前左部内边距离到 某px */
   paddingLeft = "paddingLeft",
+  /** 元素当前右部内边距离到 某px */
   paddingRight = "paddingRight",
 }
 
@@ -71,9 +79,19 @@ export enum AttentionType {
 }
 
 export interface FadeProps extends MotionProps {
-  type: "fadeIn" | "fadeOut" | "fadeInOut";
+  /** 动画类型 */
+  type: FadeType;
+  /** 动画时长 */
+  duration?: number;
+  /** 动画的重复次数，默认为0， loop 代表无限循环播放；需要注意：duration时长是1次动画时长，重复n次，总的动画时长是duration*n */
+  repeatCount?: number;
 }
 
 export interface AttentionProps extends MotionProps {
-  type: "heartBeat" | "shakeX" | "shakeY";
+  /** 动画类型 */
+  type: AttentionType;
+  /** 动画时长 */
+  duration?: number;
+  /** 动画的重复次数，默认为0， loop 代表无限循环播放；需要注意：duration时长是1次动画时长，重复n次，总的动画时长是duration*n */
+  repeatCount?: number;
 }
