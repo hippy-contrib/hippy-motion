@@ -21,10 +21,10 @@ export interface SwiperProps extends ViewPagerProps {
   data?: string[];
   /** position 改变时会触发 change 事件 */
   onChange?: (position: number) => void;
-  /** 自动轮播间隔，单位为 ms */
-  autoplay?: number;
-  /** 是否开启循环播放 未实现*/
-  loop?: boolean;
+  /** 是否开启自动轮播 */
+  autoplay?: boolean;
+  /** 自动轮播间隔，单位为 ms，最小为300ms */
+  autoPlayDuration?: number;
   /** 是否显示指示器 */
   showDots?: boolean;
   // 指示器自定义样式

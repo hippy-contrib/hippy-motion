@@ -11,8 +11,10 @@ hippy-motion: 基于 hippy-react 开发的动画库；
 
 ### hippy-motion 优势：
 
-- 简洁 API，`Motion`组件方便扩展动画，底层处理 Animation 类的创建和销毁等逻辑；
-- 预设了丰富动画组件，比如`Fade`，`Attention`，`Zoom`等组件；
+- 简洁 API，`Motion`组件方便扩展动画，底层处理`Animation` `AnimationSet`类的创建和销毁等逻辑，以及动画参数赋值等逻辑，大幅减少代码量；
+
+- 预设了丰富动画组件，比如`Fade`，`Attention`，`Zoom`，`Swiper`, `ActionSheet`,`Marquee`等常用组件；
+
 - 支持 ts；
 
 ### How to use
@@ -42,9 +44,9 @@ export default class CustomComponent extends Component<FadeProps> {
             duration: 2000 // 总动画时长2s
           },
           translateX: {
-            value: [-10, 0, 10, 0, -10], // translateX从-10变0再变10再变0，再变-10，完成一次动画400ms，重复5次，总时长2s
+            value: [-10, 0, 10, 0, -10], // translateX从-10变0再变10再变0，再变-10
             repeatCount: 5, // 重复5次
-            duration: 400 // 完成一次动画轨迹时长是400ms
+            duration: 400 // 完成一次动画轨迹时长是400ms，因为重复5次，总时长是400ms*5=2s
           }
         }}
       >
@@ -196,4 +198,52 @@ export enum AnimationType {
 </Zoom>
 ```
 
-### Swiper 组件
+### Swiper 相关组件
+
+Swiper 滑动组件是基于 `ViewPager` 封装；
+
+InfiniteSwiper 支持无限滚动，是基于 `View`组件+`Touch` 事件模拟封装；
+
+```js
+<Swiper
+  style={styles.container}
+  onChange={position => {
+    console.log("滑动选择位置:", position);
+  }}
+  data={[
+    "http://dating-70085.pictestsz.qpic.cn/dating/8ac81358-ead1-4baf-97d0-38722978681a.jpg",
+    "http://dating-70085.pictestsz.qpic.cn/dating/f821a36d-9e3b-46b0-bb0e-5f9909f08fed.jpg",
+    "http://dating-70085.pictestsz.qpic.cn/dating/578c223e-013a-4555-96b1-2ca2bae2e40f.jpg",
+    "http://dating-70085.pictestsz.qpic.cn/dating/005e0d33-fce0-4463-8768-657fe2d1a742.jpg"
+  ]}
+/>
+
+<Swiper
+  style={styles.swiperItem}
+  onChange={position => {
+    console.log("滑动选择位置:", position);
+  }}
+>
+  <View style={styles.swiperItem}>
+    <Text>1</Text>
+  </View>
+  <View style={styles.swiperItem}>
+    <Text>2</Text>
+  </View>
+  <View style={styles.swiperItem}>
+    <Text>3</Text>
+  </View>
+</Swiper>
+
+<InfiniteSwiper
+  data={[
+    "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3485161753,4133001721&fm=26&gp=0.jpg",
+    "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3692746275,43818183&fm=26&gp=0.jpg"
+  ]}
+  width={300}
+  autoPlay={true}
+  animationDuration={300}
+  autoPlayDuration={3000}
+  style={{ width: 300, height: 100 }}
+/>
+```

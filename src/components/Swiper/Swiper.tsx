@@ -48,13 +48,13 @@ export default class Swiper extends Component<SwiperProps, SwiperState> {
   }
 
   autoPlay() {
-    const { autoplay } = this.props;
-    if (autoplay && autoplay > 0) {
+    const { autoplay, autoPlayDuration } = this.props;
+    if (autoplay) {
       this.clear();
       this.timer = setTimeout(() => {
         this.next();
         this.autoPlay();
-      }, autoplay);
+      }, autoPlayDuration);
     }
   }
 
